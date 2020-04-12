@@ -1,0 +1,20 @@
+version: '3'
+services: 
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - /app/node_modules #this says that don't touch folder node_modules in docker
+      - .:/app #this says . means out side the contianer all the folder map or reference to folders in inside
+                # /app folde
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"] 
